@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Plant_Tagger.Views.LoginPage"
+             xmlns:core="clr-namespace:Plant_Tagger.Libraries"
+             xmlns:views="clr-namespace:Plant_Tagger.Views">
+    <RelativeLayout>
+        <ActivityIndicator
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            IsVisible="true"
+            IsRunning="true"
+            Color="Black"/>        
+        <Image Source="background.jpeg" Opacity="0.3"             
+                    RelativeLayout.WidthConstraint=
+                      "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                    RelativeLayout.HeightConstraint=
+                      "{ConstraintExpression Type=RelativeToParent, Property=Height}"/>
+        <Grid RelativeLayout.WidthConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                RelativeLayout.HeightConstraint=
+                  "{ConstraintExpression Type=RelativeToParent, Property=Height}">
+
+            <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="AUTO"/>
+                    <RowDefinition Height="AUTO"/>
+                    <RowDefinition Height="AUTO"/>
+                    <RowDefinition Height="AUTO"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <!--<Label BackgroundColor="Gray" Text="Login Page!" Grid.Row="1" Grid.Column="1"/>-->
+                <views:TextBoxWithImage x:Name="xEmailTB" FontAwesomeLabel="{Static core:FontAwesome.FAEnvelope}" Grid.Row="2" Grid.Column="1"/>
+                <views:TextBoxWithImage x:Name="xPasswordTB" FontAwesomeLabel="{Static core:FontAwesome.FALock}" IsPassword="true" Grid.Row="3" Grid.Column="1"/>
+                <Button Text="Sign In" TextColor="White" FontAttributes="Bold" FontSize="22" BackgroundColor="Navy"  Grid.Row="4" Grid.Column="1" Clicked="OnSignInRequested"/>
+                <views:FacebookLoginButton Grid.Row="5" Grid.Column="1"/>  
+        </Grid>
+  </RelativeLayout>
+</ContentPage>
