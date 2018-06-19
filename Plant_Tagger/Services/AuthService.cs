@@ -19,38 +19,29 @@ namespace Plant_Tagger.Services
             client.MaxResponseContentBufferSize = 256000;
         }
 
-        public async Task<string> Login(string email, string password){            
+        public async Task<string> Login(string email, string password){
             var uri = new Uri(Constants.PtBasedUrl + "auth");
 
-            try
+            MultipartFormDataContent param = new MultipartFormDataContent();
+
+            param.Add(new StringContent(email), "userID");
+            param.Add(new StringContent(password), "password");
+            param.Add(new StringContent("PASSWORD"), "type");
+
+            //var content = new StringContent(JsonConvert.SerializeObject(param, Formatting.Indented), Encoding.UTF8, "application/json");
+
+            System.Diagnostics.Debug.WriteLine("Login Request: uri->" + uri.ToString() + ", param->" + param.ToString());
+            HttpResponseMessage response = await client.PostAsync(uri, param);
+            System.Diagnostics.Debug.WriteLine("Login Response: " + response.ToString());
+
+            if (response.IsSuccessStatusCode)
             {
-                MultipartFormDataContent param = new MultipartFormDataContent();
+                var contents = await response.Content.ReadAsStringAsync();
 
-                param.Add(new StringContent(email), "userID");
-                param.Add(new StringContent(password), "password");
-                param.Add(new StringContent("PASSWORD"), "type");
-
-                //var content = new StringContent(JsonConvert.SerializeObject(param, Formatting.Indented), Encoding.UTF8, "application/json");
-
-                HttpResponseMessage response = await client.PostAsync(uri, param);
-
-                System.Diagnostics.Debug.WriteLine("Login Request: " + response.RequestMessage.ToString());
-                System.Diagnostics.Debug.WriteLine("Login Response: " + response.ToString());
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var contents = await response.Content.ReadAsStringAsync();
-
-                    return contents;
-                }
-
-                throw new Exception();
+                return contents;
             }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Login Error: " + ex.Message);
-                return null;
-            }
+
+            throw new Exception();
         }
     }
 }

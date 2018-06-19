@@ -7,6 +7,12 @@ namespace Plant_Tagger.Views
 {
     public partial class TextBoxWithImage : ContentView
     {
+        public static readonly BindableProperty TextProperty = BindableProperty.Create("Text", 
+                                                                                       typeof(string), 
+                                                                                       typeof(TextBoxWithImage), 
+                                                                                       (object)null, 
+                                                                                       BindingMode.TwoWay);
+
         public TextBoxWithImage()
         {
             InitializeComponent();

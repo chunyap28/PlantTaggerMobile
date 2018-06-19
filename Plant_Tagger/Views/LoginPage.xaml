@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Name="xLoginPage"
              x:Class="Plant_Tagger.Views.LoginPage"
              xmlns:core="clr-namespace:Plant_Tagger.Libraries"
-             xmlns:views="clr-namespace:Plant_Tagger.Views">
-    <RelativeLayout>
-        <ActivityIndicator
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            IsVisible="true"
-            IsRunning="true"
-            Color="Black"/>        
-        <Image Source="background.jpeg" Opacity="0.3"             
+             xmlns:views="clr-namespace:Plant_Tagger.Views"
+             xmlns:viewModelBase="clr-namespace:Plant_Tagger.ViewModels.Base"
+             xmlns:converters="clr-namespace:Plant_Tagger.Converters"
+             xmlns:triggers="clr-namespace:Plant_Tagger.Triggers"
+             viewModelBase:ViewModelLocator.AutoWireViewModel="true">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <RelativeLayout>         
+        <Image Source="background.jpeg" Opacity="0.3" 
                     RelativeLayout.WidthConstraint=
                       "{ConstraintExpression Type=RelativeToParent, Property=Width}"
                     RelativeLayout.HeightConstraint=
@@ -36,10 +40,47 @@
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
                 <!--<Label BackgroundColor="Gray" Text="Login Page!" Grid.Row="1" Grid.Column="1"/>-->
-                <views:TextBoxWithImage x:Name="xEmailTB" FontAwesomeLabel="{Static core:FontAwesome.FAEnvelope}" Grid.Row="2" Grid.Column="1"/>
+                <views:TextBoxWithImage 
+                    x:Name="xEmailTB" 
+                    FontAwesomeLabel="{Static core:FontAwesome.FAEnvelope}"
+                    Text="{Binding UserName.Value, Mode=TwoWay}"
+                    Grid.Row="2" Grid.Column="1"/>
+                <Label 
+                    Text="{Binding UserName.Errors, Converter={StaticResource FirstValidationErrorConverter}"
+                    Style="{StaticResource ValidationErrorLabelStyle}" />
                 <views:TextBoxWithImage x:Name="xPasswordTB" FontAwesomeLabel="{Static core:FontAwesome.FALock}" IsPassword="true" Grid.Row="3" Grid.Column="1"/>
                 <Button Text="Sign In" TextColor="White" FontAttributes="Bold" FontSize="22" BackgroundColor="Navy"  Grid.Row="4" Grid.Column="1" Clicked="OnSignInRequested"/>
                 <views:FacebookLoginButton Grid.Row="5" Grid.Column="1"/>  
         </Grid>
+        <Button 
+            Text="No Account Yet? Sign Up Here"
+            HorizontalOptions="End"
+            VerticalOptions="End"
+            Margin="10"
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height}"
+            Clicked="OnSignUpRequested"
+        />
+        <RelativeLayout
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            BindingContext="{x:Reference xLoginPage}"
+            IsVisible="{Binding IsBusy}"
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height}">
+            <RelativeLayout
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height}">
+                <ActivityIndicator
+                    x:Name="xIndicator"
+                    BindingContext="{x:Reference xLoginPage}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    IsRunning="{Binding IsBusy}"
+                    Color="Black"/>
+            </RelativeLayout>
+        </RelativeLayout>
   </RelativeLayout>
 </ContentPage>
