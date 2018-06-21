@@ -7,7 +7,7 @@
              xmlns:views="clr-namespace:Plant_Tagger.Views"
              xmlns:viewModelBase="clr-namespace:Plant_Tagger.ViewModels.Base"
              xmlns:converters="clr-namespace:Plant_Tagger.Converters"
-             xmlns:triggers="clr-namespace:Plant_Tagger.Triggers"
+             xmlns:behaviors="clr-namespace:Plant_Tagger.Behaviors"
              viewModelBase:ViewModelLocator.AutoWireViewModel="true">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -43,12 +43,28 @@
                 <views:TextBoxWithImage 
                     x:Name="xEmailTB" 
                     FontAwesomeLabel="{Static core:FontAwesome.FAEnvelope}"
-                    Text="{Binding UserName.Value, Mode=TwoWay}"
-                    Grid.Row="2" Grid.Column="1"/>
-                <Label 
-                    Text="{Binding UserName.Errors, Converter={StaticResource FirstValidationErrorConverter}"
-                    Style="{StaticResource ValidationErrorLabelStyle}" />
-                <views:TextBoxWithImage x:Name="xPasswordTB" FontAwesomeLabel="{Static core:FontAwesome.FALock}" IsPassword="true" Grid.Row="3" Grid.Column="1"/>
+                    Input="{Binding UserName.Value, Mode=TwoWay}"
+                    ErrorText="{Binding UserName.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                    Grid.Row="2" Grid.Column="1">
+                    <views:TextBoxWithImage.Behaviors>
+                        <behaviors:EventToCommandBehavior
+                            EventName="InputChanged"
+                            Command="{Binding ValidateUserNameCommand}" />
+                    </views:TextBoxWithImage.Behaviors>
+                </views:TextBoxWithImage>
+                <views:TextBoxWithImage 
+                    x:Name="xPasswordTB" 
+                    FontAwesomeLabel="{Static core:FontAwesome.FALock}" 
+                    IsPassword="true"
+                    Input="{Binding Password.Value, Mode=TwoWay}"
+                    ErrorText="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                    Grid.Row="3" Grid.Column="1">
+                    <views:TextBoxWithImage.Behaviors>
+                        <behaviors:EventToCommandBehavior
+                            EventName="InputChanged"
+                            Command="{Binding ValidatePasswordCommand}" />
+                    </views:TextBoxWithImage.Behaviors>
+                </views:TextBoxWithImage>
                 <Button Text="Sign In" TextColor="White" FontAttributes="Bold" FontSize="22" BackgroundColor="Navy"  Grid.Row="4" Grid.Column="1" Clicked="OnSignInRequested"/>
                 <views:FacebookLoginButton Grid.Row="5" Grid.Column="1"/>  
         </Grid>

@@ -29,7 +29,7 @@ namespace Plant_Tagger.Views
             IsBusy = true;
             AuthService AuthServ = new AuthService();
             try{
-                String result = await AuthServ.Login(xEmailTB.Text, xPasswordTB.Text);    
+                String result = await AuthServ.Login(xEmailTB.Input, xPasswordTB.Input);    
                 System.Diagnostics.Debug.WriteLine("Result: " + result);
             }catch(Exception ex){
                 await DisplayAlert("Alert", ex.Message, "OK");

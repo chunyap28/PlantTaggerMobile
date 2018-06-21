@@ -13,9 +13,13 @@ namespace Plant_Tagger.ViewModels
         private ValidatableObject<string> _password;
 
         public ICommand ValidateUserNameCommand => new Command(() => ValidateUserName());
+        public ICommand ValidatePasswordCommand => new Command(() => ValidatePassword());
 
         public LoginPageModel(){
-            //AddValidations();
+            _userName = new ValidatableObject<string>();
+            _password = new ValidatableObject<string>();
+
+            AddValidations();
         }
 
         public override Task InitializeAsync(object navigationData){

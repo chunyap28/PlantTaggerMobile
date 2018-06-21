@@ -7,22 +7,41 @@ namespace Plant_Tagger.Views
 {
     public partial class TextBoxWithImage : ContentView
     {
-        public static readonly BindableProperty TextProperty = BindableProperty.Create("Text", 
-                                                                                       typeof(string), 
-                                                                                       typeof(TextBoxWithImage), 
-                                                                                       (object)null, 
-                                                                                       BindingMode.TwoWay);
+        public event EventHandler<TextChangedEventArgs> InputChanged;
 
         public TextBoxWithImage()
-        {
+        {       
             InitializeComponent();
+            xEntry.TextChanged += new EventHandler<TextChangedEventArgs>(onInputChanged);
         }
 
-        public String Text
+        #region Input (Bindable string)
+        public static readonly BindableProperty InputProperty = BindableProperty.Create(
+                                                                  "Input", //Public name to use
+                                                                  typeof(string), //this type
+                                                                  typeof(TextBoxWithImage), //parent type (tihs control)
+                                                                  string.Empty); //default value
+        
+        public string Input
         {
-            get => xEntry.Text;
-            set => xEntry.Text = value;
+            get { return (string)GetValue(InputProperty); }
+            set { SetValue(InputProperty, value); }
         }
+        #endregion Input (Bindable string)
+
+        #region ErrorText (Bindable string)
+        public static readonly BindableProperty ErrorTextProperty = BindableProperty.Create(
+                                                                  "ErrorText", //Public name to use
+                                                                  typeof(string), //this type
+                                                                  typeof(TextBoxWithImage), //parent type (tihs control)
+                                                                  string.Empty); //default value
+
+        public string ErrorText
+        {
+            get { return (string)GetValue(ErrorTextProperty); }
+            set { SetValue(ErrorTextProperty, value); }
+        }
+        #endregion ErrorText (Bindable string)
 
         public bool IsPassword
         {
@@ -41,6 +60,14 @@ namespace Plant_Tagger.Views
             get => xLabel.Text;
 
             set => xLabel.Text = value;
+        }
+
+        void onInputChanged(object sender, TextChangedEventArgs args){
+            var handler = InputChanged;
+            if (handler != null)
+            {
+                handler(this, args);
+            }
         }
     }
 }
