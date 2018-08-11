@@ -1,13 +1,14 @@
 ﻿using System;
-using Xamarin.Forms;
-using Plant_Tagger.Services;
+using System.Collections.Generic;
 using Plant_Tagger.ViewModels;
+
+using Xamarin.Forms;
 
 namespace Plant_Tagger.Views
 {
-    public partial class LoginPage : ContentPage
+    public partial class MainPage : ContentPage
     {
-        public LoginPage()
+        public MainPage()
         {
             InitializeComponent();
         }
@@ -18,7 +19,7 @@ namespace Plant_Tagger.Views
             this.Content = null;
             this.Content = content;
 
-            var vm = BindingContext as LoginPageModel;
+            var vm = BindingContext as MainPageModel;
         }
     }
 }

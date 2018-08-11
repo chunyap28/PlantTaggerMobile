@@ -33,8 +33,12 @@ namespace Plant_Tagger.ViewModels.Base
             builder.RegisterType<NavigationService>().As<INavigationService>();
             builder.RegisterType<DialogService>().As<IDialogService>();
             builder.RegisterType<SettingsService>().As<ISettingsService>();
+            builder.RegisterType<AuthService>().As<IAuthService>();
+            builder.RegisterType<RequestProvider>().As<IRequestProvider>();
 
             builder.RegisterType<LoginPageModel>();
+            builder.RegisterType<SignUpPageModel>();
+            builder.RegisterType<MainPageModel>();
 
             _container = builder.Build();
         }

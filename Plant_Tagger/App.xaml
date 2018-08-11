@@ -30,13 +30,43 @@
             <Color x:Key="AndroidDefaultAccentColorColor">#1FAECE</Color>
             <Color x:Key="AndroidListViewBackgroundColor">Transparent</Color>
             <Color x:Key="iOSListViewBackgroundColor">Transparent</Color>
-            
+
+            <!-- STYLES -->
             <Style x:Key="ValidationErrorLabelStyle"
                    TargetType="{x:Type Label}">
                    <Setter Property="TextColor"
                            Value="{StaticResource ErrorColor}" />
                    <Setter Property="FontSize"
                            Value="12" />
+            </Style>
+
+            <Style x:Key="EntryStyle"
+                   TargetType="{x:Type Entry}">
+                <Setter Property="FontFamily"
+                        Value="Montserrat-Regular" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource BlackColor}" />
+                <Setter Property="PlaceholderColor"
+                        Value="{StaticResource BlackColor}" />
+                <Setter Property="FontSize"
+                        Value="12" />
+                <Setter Property="HorizontalOptions"
+                        Value="FillAndExpand" />
+                <Setter Property="FontAttributes"
+                        Value="Bold" />
+                <Setter Property="BackgroundColor" 
+                        Value="Transparent" />
+                <Setter Property="Opacity"
+                        Value="0.6" />
+                <Setter Property="Keyboard"
+                        Value="Text" />
+                <Style.Triggers>
+                    <Trigger TargetType="Entry"
+                             Property="IsFocused" 
+                             Value="True">
+                        <Setter Property="Opacity" Value="1" />
+                    </Trigger>
+                </Style.Triggers>
             </Style>
        </ResourceDictionary> 
 	</Application.Resources>

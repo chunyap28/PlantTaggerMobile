@@ -65,7 +65,15 @@
                             Command="{Binding ValidatePasswordCommand}" />
                     </views:TextBoxWithImage.Behaviors>
                 </views:TextBoxWithImage>
-                <Button Text="Sign In" TextColor="White" FontAttributes="Bold" FontSize="22" BackgroundColor="Navy"  Grid.Row="4" Grid.Column="1" Clicked="OnSignInRequested"/>
+                <Button 
+                    Text="Sign In" 
+                    TextColor="White" 
+                    FontAttributes="Bold" 
+                    FontSize="22" 
+                    BackgroundColor="Navy" 
+                    IsEnabled="{Binding InputValid}"
+                    Command="{Binding SignInCommand}"
+                    Grid.Row="4" Grid.Column="1" />
                 <views:FacebookLoginButton Grid.Row="5" Grid.Column="1"/>  
         </Grid>
         <Button 
@@ -75,12 +83,11 @@
             Margin="10"
             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height}"
-            Clicked="OnSignUpRequested"
+            Command="{Binding SignUpCommand}"
         />
         <RelativeLayout
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand"
-            BindingContext="{x:Reference xLoginPage}"
             IsVisible="{Binding IsBusy}"
             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width}"
             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height}">
@@ -91,7 +98,6 @@
                 RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height}">
                 <ActivityIndicator
                     x:Name="xIndicator"
-                    BindingContext="{x:Reference xLoginPage}"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
                     IsRunning="{Binding IsBusy}"

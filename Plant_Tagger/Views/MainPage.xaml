@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="Plant_Tagger.Views.SignUpPage"
+             x:Name="xMainPage"
+             x:Class="Plant_Tagger.Views.MainPage"
              xmlns:core="clr-namespace:Plant_Tagger.Libraries"
              xmlns:views="clr-namespace:Plant_Tagger.Views"
              xmlns:viewModelBase="clr-namespace:Plant_Tagger.ViewModels.Base"
              xmlns:converters="clr-namespace:Plant_Tagger.Converters"
              xmlns:behaviors="clr-namespace:Plant_Tagger.Behaviors"
-             viewModelBase:ViewModelLocator.AutoWireViewModel="true">
+             viewModelBase:ViewModelLocator.AutoWireViewModel="true">    
     <ContentPage.Content>
-        <Label Text="SignUpPage"/>
+        <Label>This is main page</Label>
     </ContentPage.Content>
 </ContentPage>
